@@ -164,26 +164,6 @@ namespace WindowsDisplayAPI
             return monitorHandle == IntPtr.Zero ? null : new DisplayScreen(monitorHandle);
         }
 
-#if !NETSTANDARD
-        /// <summary>
-        ///     Returns the corresponding <see cref="System.Windows.Forms.Screen" /> instance
-        /// </summary>
-        /// <returns>A instance of Screen object</returns>
-        public System.Windows.Forms.Screen GetWinFormScreen()
-        {
-            if (!IsValid)
-                throw new Exceptions.InvalidDisplayException();
-            try
-            {
-                return System.Windows.Forms.Screen.AllScreens.FirstOrDefault(screen => screen.DeviceName.Equals(ScreenName));
-            }
-            catch
-            {
-                // ignored
-            }
-            return null;
-        }
-#endif
 
         /// <summary>
         ///     Get the corresponding <see cref="Display" /> instances.
@@ -254,6 +234,7 @@ namespace WindowsDisplayAPI
                 {
                     break;
                 }
+
                 yield return new DisplayPossibleSetting(deviceMode);
             }
         }
